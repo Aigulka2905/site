@@ -98,10 +98,10 @@ export function SectionBgVideo({
   lightPoster,
   className,
   opacity = 0.6,
-  lightOpacity = 0.85,
+  lightOpacity = 0.42,
   position = "object-center",
   scrim = "bg-void/55",
-  lightScrim = "bg-void/25",
+  lightScrim = "bg-void/55",
 }: {
   video: string;
   poster: string;
@@ -140,7 +140,7 @@ export function SectionBgVideo({
           opacity={lightOpacity}
           position={position}
           scrim={lightScrim}
-          feather="bg-gradient-to-b from-void/55 via-transparent to-void/55"
+          feather="bg-gradient-to-b from-void/75 via-void/30 to-void/75"
         />
       )}
     </div>
