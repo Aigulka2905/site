@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { usePrefersReducedMotion } from "@/lib/hooks";
+import { useRef } from "react";
+import { usePrefersReducedMotion, useAutoplayVideo } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 
 /**
@@ -33,26 +33,7 @@ function BgLayer({
 }) {
   const reduced = usePrefersReducedMotion();
   const ref = useRef<HTMLVideoElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    if (reduced) return;
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { rootMargin: "200px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [reduced]);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (inView) el.play().catch(() => {});
-    else el.pause();
-  }, [inView]);
+  useAutoplayVideo(ref, !reduced);
 
   return (
     <div className={cn("absolute inset-0 overflow-hidden", className)}>
@@ -70,10 +51,11 @@ function BgLayer({
           ref={ref}
           className={cn("absolute inset-0 h-full w-full object-cover", position)}
           style={{ opacity }}
+          autoPlay
           muted
           loop
           playsInline
-          preload="none"
+          preload="auto"
           poster={poster}
         >
           <source src={video} type="video/mp4" />

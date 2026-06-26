@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { usePrefersReducedMotion } from "@/lib/hooks";
+import { useRef } from "react";
+import { usePrefersReducedMotion, useAutoplayVideo } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 
 /**
@@ -22,6 +23,8 @@ function HeroLayer({
   className?: string;
 }) {
   const reduced = usePrefersReducedMotion();
+  const ref = useRef<HTMLVideoElement>(null);
+  useAutoplayVideo(ref, !reduced);
 
   return (
     <div className={cn("absolute inset-0 overflow-hidden", className)}>
@@ -36,6 +39,7 @@ function HeroLayer({
 
       {!reduced && (
         <video
+          ref={ref}
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
           loop
