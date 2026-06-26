@@ -6,12 +6,28 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "remotion": "remotion studio",
+    "remotion:render": "remotion render WarpHero out/warp-hero.mp4",
+    "remotion:render:bg": "remotion render AmbientSolutions public/backgrounds/solutions.mp4 --scale=0.5 --crf=30 && remotion render AmbientTech public/backgrounds/technologies.mp4 --scale=0.5 --crf=30 && remotion render AmbientAbout public/backgrounds/about.mp4 --scale=0.5 --crf=30 && remotion render AmbientContact public/backgrounds/contact.mp4 --scale=0.5 --crf=30",
+    "remotion:render:pages": "remotion render AmbientServices public/backgrounds/page-services.mp4 --scale=0.5 --crf=30 && remotion render AmbientProjects public/backgrounds/page-projects.mp4 --scale=0.5 --crf=30 && remotion render AmbientAccreditation public/backgrounds/page-accreditation.mp4 --scale=0.5 --crf=30 && remotion render AmbientProduct public/backgrounds/page-product.mp4 --scale=0.5 --crf=30",
+    "remotion:render:light": "remotion render WarpHeroLight public/backgrounds/hero-light.mp4 --scale=0.5 --crf=30 && remotion render AmbientSolutionsLight public/backgrounds/solutions-light.mp4 --scale=0.5 --crf=30 && remotion render AmbientTechLight public/backgrounds/technologies-light.mp4 --scale=0.5 --crf=30 && remotion render AmbientAboutLight public/backgrounds/about-light.mp4 --scale=0.5 --crf=30 && remotion render AmbientContactLight public/backgrounds/contact-light.mp4 --scale=0.5 --crf=30 && remotion render AmbientServicesLight public/backgrounds/page-services-light.mp4 --scale=0.5 --crf=30 && remotion render AmbientProjectsLight public/backgrounds/page-projects-light.mp4 --scale=0.5 --crf=30 && remotion render AmbientAccreditationLight public/backgrounds/page-accreditation-light.mp4 --scale=0.5 --crf=30 && remotion render AmbientProductLight public/backgrounds/page-product-light.mp4 --scale=0.5 --crf=30"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@remotion/cli": "^4.0.481",
+    "@remotion/player": "^4.0.481",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.40.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.23",
+    "lucide-react": "^1.21.0",
     "next": "16.2.9",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "remotion": "^4.0.481",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
