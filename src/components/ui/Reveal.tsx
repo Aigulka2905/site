@@ -1,7 +1,11 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { usePrefersReducedMotion } from "@/lib/hooks";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, type Variants } from "framer-motion";
+import {
+  usePrefersReducedMotion,
+  useIsomorphicLayoutEffect,
+} from "@/lib/hooks";
 
 type Tag = "div" | "span" | "li" | "ol" | "ul" | "p";
 
@@ -35,8 +39,15 @@ const motionTags = {
 } as const;
 
 /**
- * Scroll-triggered reveal built on Framer Motion's whileInView. Honors
- * prefers-reduced-motion by rendering the final state immediately.
+ * Scroll-triggered reveal — robust by design.
+ *
+ * Content renders FULLY VISIBLE during SSR / before hydration (and under
+ * prefers-reduced-motion); the entrance animation is layered on only after the
+ * component mounts on the client. So if JS fails to run / hydrate on a given
+ * browser (we saw this on Yandex), the section content is still shown rather
+ * than stuck at opacity:0 — only the page would lose the animation, never the
+ * content. A failsafe timer also forces visibility in case the in-view
+ * observer never fires.
  */
 export function Reveal({
   children,
@@ -46,10 +57,31 @@ export function Reveal({
   as = "div",
 }: RevealProps) {
   const reduced = usePrefersReducedMotion();
+  const ref = useRef<HTMLElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const [enhanced, setEnhanced] = useState(false);
+  const [failsafe, setFailsafe] = useState(false);
 
-  if (reduced) {
-    const Tag = as;
-    return <Tag className={className}>{children}</Tag>;
+  // Only opt into the animated version once we're running on the client.
+  useIsomorphicLayoutEffect(() => {
+    setEnhanced(true);
+  }, []);
+
+  // Never let content stay hidden if the in-view observer doesn't fire.
+  useEffect(() => {
+    const t = setTimeout(() => setFailsafe(true), 1500);
+    return () => clearTimeout(t);
+  }, []);
+
+  const Tag = as;
+
+  // SSR / pre-hydration / reduced-motion → plain, visible content.
+  if (reduced || !enhanced) {
+    return (
+      <Tag ref={ref as React.Ref<never>} className={className}>
+        {children}
+      </Tag>
+    );
   }
 
   const MotionTag = motionTags[as];
@@ -66,11 +98,11 @@ export function Reveal({
 
   return (
     <MotionTag
+      ref={ref as React.Ref<never>}
       className={className}
       variants={variants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-12% 0px" }}
+      animate={inView || failsafe ? "visible" : "hidden"}
     >
       {children}
     </MotionTag>
