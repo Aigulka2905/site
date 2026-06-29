@@ -30,16 +30,21 @@ export const site = {
 } as const;
 
 /**
- * Header (top) navigation — leads to the standalone page tabs where one exists,
- * falling back to in-page section anchors otherwise.
+ * Header (top) navigation — leads to the standalone page tabs, not to in-page
+ * sections of the home page. Products live in a dropdown.
  */
 export const nav = [
   { label: "Услуги", href: "/services" },
-  { label: "Решения", href: "#solutions" },
+  {
+    label: "Продукты",
+    children: [
+      { label: "Электронная торговая площадка", href: "/products/etp" },
+      { label: "Электронный магазин «Маркет»", href: "/products/market" },
+      { label: "Signall — весовой контроль", href: "/products/signall" },
+    ],
+  },
   { label: "Проекты", href: "/projects" },
-  { label: "Технологии", href: "#technologies" },
-  { label: "О компании", href: "#about" },
-  { label: "Аккредитация", href: "/it-accreditation" },
+  { label: "ИТ аккредитация", href: "/it-accreditation" },
   { label: "Контакты", href: "#contact" },
 ] as const;
 
@@ -135,6 +140,7 @@ export const solutions = {
         "Личные кабинеты и информационные панели",
       ],
       metric: { value: "до 25%", label: "оптимизация оборотных средств" },
+      image: "/products/etp.png",
       accent: "cyan",
     },
     {
@@ -153,6 +159,7 @@ export const solutions = {
         "Соответствие законодательству РФ",
       ],
       metric: { value: "до 10%", label: "снижение затрат на закупки" },
+      image: "/products/market.png",
       accent: "magenta",
     },
     {
@@ -171,6 +178,7 @@ export const solutions = {
         "Отчётность и контроль поставок",
       ],
       metric: { value: "real-time", label: "учёт и аналитика" },
+      image: "/products/signall.jpg",
       accent: "blue",
     },
   ],

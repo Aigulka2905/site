@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Check, ArrowRight } from "lucide-react";
 import { solutions } from "@/data/content";
 import { Section } from "@/components/ui/Section";
@@ -101,14 +102,23 @@ export function Solutions() {
               >
                 <div
                   className={cn(
-                    "relative aspect-[4/3] overflow-hidden rounded-3xl border bg-surface/60 shadow-[0_0_60px_-20px]",
+                    "group/panel relative aspect-[4/3] overflow-hidden rounded-3xl border bg-surface/60 shadow-[0_0_60px_-20px]",
                     accent.border,
                     accent.ring,
                   )}
                 >
-                  {/* Neon ambience inside the panel */}
-                  <div className={cn("absolute -right-10 -top-10 h-48 w-48 rounded-full blur-3xl", accent.bg)} />
-                  <div className="absolute inset-0 grid-backdrop opacity-50" />
+                  {/* Product screenshot */}
+                  <Image
+                    src={sol.image}
+                    alt={`Интерфейс — ${sol.name}`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-top transition-transform duration-700 group-hover/panel:scale-[1.03]"
+                  />
+
+                  {/* Legibility wash behind the metric chip */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-void/75 via-void/10 to-transparent" />
+                  <div className={cn("pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full opacity-60 blur-3xl", accent.bg)} />
 
                   {/* Floating metric chip */}
                   <div className="absolute left-6 top-6 glass rounded-2xl px-5 py-4">
@@ -117,17 +127,6 @@ export function Solutions() {
                     </div>
                     <div className="mt-1 text-xs text-muted">{sol.metric.label}</div>
                   </div>
-
-                  {/* Big ghost monogram */}
-                  <span
-                    className={cn(
-                      "absolute bottom-4 right-6 select-none font-display text-7xl font-extrabold opacity-20 sm:text-8xl",
-                      accent.text,
-                    )}
-                    aria-hidden
-                  >
-                    {sol.short.slice(0, 3)}
-                  </span>
                 </div>
               </Reveal>
             </div>
