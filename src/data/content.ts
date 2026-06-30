@@ -34,7 +34,13 @@ export const site = {
  * sections of the home page. Products live in a dropdown.
  */
 export const nav = [
-  { label: "Услуги", href: "/services" },
+  {
+    label: "Услуги",
+    children: [
+      { label: "Разработка и поддержка", href: "/services" },
+      { label: "Аккредитация и реестр ПО", href: "/accreditation-services" },
+    ],
+  },
   {
     label: "Продукты",
     children: [
@@ -294,6 +300,7 @@ export const footer = {
       title: "Компания",
       links: [
         { label: "Услуги", href: "/services" },
+        { label: "Аккредитация и реестр ПО", href: "/accreditation-services" },
         { label: "Проекты", href: "/projects" },
         { label: "ИТ аккредитация", href: "/it-accreditation" },
         { label: "Контакты", href: "#contact" },
