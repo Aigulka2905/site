@@ -201,7 +201,6 @@ export const cases = {
     { name: "Торги Федерации", short: "ФедТорги", kind: "ЭТП" },
     { name: "Торги РФ", short: "РФТорги", kind: "ЭТП" },
     { name: "МосОблТорг", short: "МОТ", kind: "ЭТП" },
-    { name: "РесТорг", short: "РесТорг", kind: "ЭТП" },
     { name: "Маркет", short: "Маркет", kind: "Электронный магазин" },
     { name: "Signall", short: "Signall", kind: "Весовой контроль" },
   ],
