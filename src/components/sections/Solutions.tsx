@@ -115,18 +115,6 @@ export function Solutions() {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover object-top transition-transform duration-700 group-hover/panel:scale-[1.03]"
                   />
-
-                  {/* Legibility wash behind the metric chip */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-void/75 via-void/10 to-transparent" />
-                  <div className={cn("pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full opacity-60 blur-3xl", accent.bg)} />
-
-                  {/* Floating metric chip */}
-                  <div className="absolute left-6 top-6 glass rounded-2xl px-5 py-4">
-                    <div className={cn("font-display text-3xl font-bold", accent.text)}>
-                      {sol.metric.value}
-                    </div>
-                    <div className="mt-1 text-xs text-muted">{sol.metric.label}</div>
-                  </div>
                 </div>
               </Reveal>
             </div>
